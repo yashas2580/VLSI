@@ -1,0 +1,48 @@
+
+Source Code
+module tff(t, clk, rst, q, qb);
+input t;
+input clk;
+input rst;
+output q;
+output qb;
+reg tq;
+always @(posedge clk)
+begin
+if(rst)
+tq<=1'b0;
+else
+begin
+if(t==1'b1) tq<=~tq; end
+end
+assign q=~tq;
+assign qb=~q; endmodule
+
+
+Testbench Code
+module
+tff1_v; reg
+t;
+reg clk;
+reg rst;
+wire q;
+wire qb;
+tff uut
+(t,clk, rst, q, qb);
+initial begin clk=1;
+forever #5
+clk=~clk; end
+initial
+begin
+rst=1;
+#10 rst= 0;
+#80 rst= 1;
+#10 rst = 0; end
+initial
+begint=0;
+#15 t=1;
+#15 t=0;
+#15 t=1;
+#15 t=0;
+end
+endmodule
