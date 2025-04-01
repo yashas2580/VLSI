@@ -1,0 +1,50 @@
+
+Source Code
+module trfgate (a, b, c, d, e,
+f, g, h, i);
+input a;
+input b;
+output c;
+output d;
+output e;
+output f;
+output g;
+output h;
+output i;
+assign ca; Not
+assign d=alb; or
+assign e=a&b; and
+assign f=a^b; 2.OR
+assign g~(alb); NOR
+assign h=~(a&b); NAND
+assign i~(a^b); x-NOR
+endmodule
+
+
+
+module
+trfgate1_v;
+reg a;
+reg b;
+wire c; wire d;
+Testbench Code
+wire e;
+wire f;
+wire g;
+wire h;
+wire i;
+trfgate uut (a, b, c, d, e, f, g, h, i);
+initial begina =
+0;
+b =
+0;
+#10 a=0;
+#10 b=0;
+#10 a=1;
+#10 b=0;
+#10 a=0;
+#10 b=1;
+#10 a=1;
+#10 b=1;
+end
+endmodule
