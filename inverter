@@ -1,0 +1,25 @@
+
+Source Code
+module inver1(a, y);
+input a;
+output y;
+assign
+y=~a;
+endmodule
+
+Testbench Code
+module inver3_v;
+reg a;
+wire y;
+inver1 uut (a,y);
+initial begin
+a = 0;
+#5 a=1;
+#5 a=0;
+#5 a=1;
+#5 a=0;
+#5 a=1;
+#5 a=0;
+#5 a=1;
+end
+endmodule
