@@ -1,0 +1,24 @@
+Source Code
+module synch1 (clk, rst, cout);
+input clk;
+input rst;
+output [3:0]cout;
+reg[3:0]cout;
+always @(posedge clk) begin if (rst)
+cout=4'b0000; else
+cout
+
+
+Testbench Code
+module synch2_v;
+reg clk;
+reg rst;
+wire [3:0] cout;
+synch1 uut (clk, rst, cout); initial begin
+clk = 1;
+forever #5clk =~clk; end
+initial begin
+rst = 1;
+/#100; #5 rst=0;
+#5 rst=1; #5 rst=0;
+end endmodule
