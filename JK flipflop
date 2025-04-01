@@ -1,0 +1,55 @@
+
+Source Code
+module jkf(j, k, clk, rst, q,
+qbar);
+input j;
+input k;
+input clk;
+input rst;
+output q; output qbar;
+wire j,k,clk, rst,qbar;
+reg q;
+always @ (posedge clk)
+begin
+if(rst)
+q<=1'b0;
+else if(j==0 && k==0)
+q<=q;
+else if(j==0 && k==1)
+q<=1'b0;
+else if(j==1 && k==0)
+q<=1'b1;
+else if(j==1 && k==1)
+q<=~q;
+end
+assign qbar=q; endmodule
+
+
+Testbench Code
+module jkff_v;
+reg j;
+reg k;
+reg clk;
+reg rst;
+wire q;
+wire qbar;
+jkf uut (j,k, clk, rst,q, qbar); initial begin clk=1;
+forever #5 clk=~clk;
+end
+initial begin
+rst=1;
+#10 rst=0;
+#80 rst=1;
+#10 rst=0;
+end
+initial begin
+j=0; k=0;
+#10 j=0;k=1;
+#10 j=1;k=0;
+#10 j=1;k=1;
+#10 j=0; k=0;
+#10 j=0;k=1;
+#10 j=1;k=0;
+#10 j=1;k=1;
+end
+endmodule
