@@ -1,0 +1,51 @@
+
+SR-Flip Flop
+Source Code
+module ssrff(s, r, clk, rst,
+q, qb);
+input s;
+input r;
+input clk;
+input rst;
+output q;
+output qb;
+reg q;
+always @(posedge clk)
+begin
+if(rst)
+q<=1'b0;
+else
+if (s==1'b0&& r==1'b0)
+q<=q;
+else if(s==1'b0&& r==1'b1) q<=1'b0;
+else if(s==1'b1&& r==1'b0) q<=1'b1;
+else if(s==1'b1&& r==1'b0) q<=1'bx;
+end
+assign qb=~q; endmodule
+
+
+Testbench Code
+module ssff_v;
+reg s;
+reg r;
+reg clk;
+reg rst;
+wire q; wire qb;
+ssrff uut (s,r,clk, rst,q,qb);
+initial begin
+clk=1;
+forever #5 clk=~clk;
+end
+initial begin
+rst=1;
+#10 rst=0;
+#80 rst=1;
+#10 rst=0;
+end
+initial begin
+s=0; r=0; #15 s=0; r=1;
+#15 s=1; r=0;
+#15 s=1; r=1;
+#30 s=0; r=0;
+end
+endmodule
