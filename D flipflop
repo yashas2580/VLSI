@@ -1,0 +1,39 @@
+
+Source Code
+module dff1(d, clk, rst, q, qb);
+input d; input clk;
+input rst;
+output q; output qb;
+reg q;
+always@(posedge clk)
+begin if(rst)
+q<=1'b0;
+else
+q<=d;
+end
+assign qb=~q;
+endmodule
+
+
+module dff_v;
+reg d;
+reg clk;
+Testbench Code
+reg rst;
+wire q;
+wire qb;
+dff1 uut
+(d,clk, rst, q, qb); initial
+begin clk = 1; forever #5 clk=~clk; end initial beginrst=1; #10 rst=0;
+#70 rst =1;
+#10 rst=0;
+#70 rst=1;
+end
+initial
+begind=0;
+#10 d=1;
+#10 d=0;
+#10 d=1;
+#10 d=0;
+end
+endmodule
