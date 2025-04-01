@@ -1,0 +1,40 @@
+
+Source Code
+
+module trsg1 (a, ctrl, y); reg a;
+input a;
+input ctrl;
+reg ctrl;
+output y;
+reg y; always
+@(a, ctrl)
+begin
+
+if
+#10 a=0;
+(ctrl==1)
+
+y<=a; else y<=1'b z; end
+end
+endmodule
+
+
+Testbench code
+module trsg2_v;
+reg a; reg ctrl;
+wire y;
+trsg1 uut
+(a, ctrl,y); initial begin
+a = 0; #10 a=1;
+#10 a=0;
+#10 a=1;
+#10 a=0;
+end
+initial
+begin
+ctrl=0;
+#10 ctr1=1;
+#10 ctrl=0;
+#10 ctr1=1;
+end
+endmodule
