@@ -1,0 +1,50 @@
+Source Code (SA)
+module serialadd16 (clk, rst, a, b,
+sum);
+input clk;
+input rst;
+input [3:0] a,b;
+output [4:0] sum; reg[3:0] ina, inb; reg[4:0]org; wire se, co;
+always @(posedge clk)
+begin
+if(rst)
+begin
+ina=a;
+inb=b;
+org=5'b0;
+end
+else
+begin
+ina={1'b0, ina [3:1]};
+inb={1'b0, inb[3:1]};
+org[4]=c0;
+org [3:0]={se, org [3:1]};
+end end
+assign se=ina[0]^inb[0]^org[4]; assign
+c0=(ina[0]&inb[0] | (inb[0]&org[4])|
+org[4]&ina[0]);
+assign sum=org; endmodule
+
+
+Testbench Code
+module serial162_v;
+reg clk;
+reg rst;
+reg [3:0] a;
+reg [3:0] b;
+wire [4:0] sum;
+serialadd16 uut (.clk(clk),
+.rst(rst),.a(a),.b(b),.sum (sum));
+initial begin
+clk =1'b0;
+forever #5 clk=~clk;
+end
+initial begin
+rst=1'b1;
+a=4'd9;
+b=4'd8;
+#10 rst=1'b0;
+#30;
+#100;
+end
+endmodule
